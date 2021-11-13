@@ -8,6 +8,7 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT;
 const CredentialRouter = require('./routes/CredentialRoute');
+const ExpenditureRouter = require('./routes/ExpenditureRoute');
 
 
 //configure express dependencies
@@ -20,6 +21,7 @@ app.options('*', cors());
 
 //register routes 
 app.use('/v1/credential', CredentialRouter);
+app.use('/v1/expenditure', ExpenditureRouter);
 
 app.listen(PORT, () => {
     console.log(`Listening to port ${PORT}`);
