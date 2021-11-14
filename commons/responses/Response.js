@@ -8,9 +8,11 @@ const returnResponse = (res, status, message) => {
     })
 }
 
-const returnPaginatedResponse = (res, status, message, totalCount, pageCount) => {
+const returnPaginatedResponse = (res, status, message, totalCount, pageCount, currentPage, totalPages) => {
     return res.status(status).json({
         status: status,
+        currentPage: currentPage,
+        totalPages: totalPages,
         totalAvailableData: totalCount,
         totalCurrentPageData: pageCount,
         message: message[0]

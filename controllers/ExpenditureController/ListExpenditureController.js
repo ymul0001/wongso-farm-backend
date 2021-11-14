@@ -15,11 +15,12 @@ const findByUserIdPaginated = async (req, res) => {
     validateQueryParams(res, userId, sortOrder, page, limit);
     const expenditures = await Expenditure.findByUserIdSortByExpenseDate(userId, sortOrder);
     const totalCount = expenditures[0].length;
+    const totalPage = Math.ceil(totalCount / limit);
     const startIndex = (page - 1) * limit;
     const endIndex = (page * limit <= expenditures[0].length) ? page * limit : expenditures[0].length;
     expenditures[0] = expenditures[0].slice(startIndex, endIndex);
     const pageCount = expenditures[0].length;
-    validateExpendituresData(res, expenditures, totalCount, pageCount);
+    validateExpendituresData(res, expenditures, totalCount, pageCount, parseInt(page), totalPage);
 }
 
 
@@ -38,11 +39,11 @@ const validateQueryParams = (res, userId, order, page, limit) => {
     }
 }
 
-const validateExpendituresData = (res, expenditures, totalCount, pageCount) => {
+const validateExpendituresData = (res, expenditures, totalCount, pageCount, currentPage, totalPages) => {
     if (ListUtils.isNullOrEmpty(expenditures[0])) {
         return Response.returnResponse(res, StatusCode.status.DATA_NOT_FOUND_EXCEPTION, "Cannot find valid expense data");
     }
-    return Response.returnPaginatedResponse(res, StatusCode.status.SUCCESS, expenditures, totalCount, pageCount);
+    return Response.returnPaginatedResponse(res, StatusCode.status.SUCCESS, expenditures, totalCount, pageCount, currentPage, totalPages);
 }
 
 module.exports = {
