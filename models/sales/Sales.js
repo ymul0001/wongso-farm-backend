@@ -8,7 +8,7 @@ const findAll = () => {
 }
 
 const findByUserIdSorted = (userId, sortKey, sortOrder) => {
-    return mysqlService.execute(`SELECT s.sales_date, c.customer_name, s.level, s.qty, s.price_per_item, s.total_price FROM sales s
+    return mysqlService.execute(`SELECT s.sales_id, s.sales_date, c.customer_name, s.level, s.qty, s.price_per_item, s.total_price FROM sales s
                                  JOIN customer c ON s.customer_id = c.customer_id
                                  WHERE user_id = '${userId}' ORDER BY ${sortKey} ${sortOrder}`);
 }
