@@ -11,6 +11,7 @@ const CredentialRouter = require('./routes/CredentialRoute');
 const ExpenditureRouter = require('./routes/ExpenditureRoute');
 const CustomerRouter = require('./routes/CustomerRoute');
 const SalesRouter = require('./routes/SalesRoute');
+const DashboardRouter = require('./routes/DashboardRoute');
 
 //configure express dependencies
 app.use(express.json()); 
@@ -21,10 +22,12 @@ app.use(cors({
 app.options('*', cors());
 
 //register routes 
+app.use('/v1/dashboard', DashboardRouter);
 app.use('/v1/credential', CredentialRouter);
 app.use('/v1/expenditure', ExpenditureRouter);
 app.use('/v1/customer', CustomerRouter);
 app.use('/v1/sales', SalesRouter);
+
 
 app.listen(PORT, () => {
     console.log(`Listening to port ${PORT}`);
