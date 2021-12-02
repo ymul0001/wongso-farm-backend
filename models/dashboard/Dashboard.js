@@ -23,14 +23,14 @@ const findSalesPerMonth = (userId) => {
                                     (SELECT 
                                         T1.month
                                     FROM
-                                        (SELECT 1 AS month UNION SELECT 2 AS month UNION SELECT 3 AS month UNION SELECT 4 AS month UNION SELECT 5 AS month UNION SELECT 6 AS month UNION SELECT 7 AS month UNION SELECT 8 AS month UNION SELECT 9 AS month UNION SELECT 10 AS month UNION SELECT 11 AS month UNION SELECT 12 AS month) T1) T2
+                                        (SELECT 'January' AS month UNION SELECT 'February' AS month UNION SELECT 'March' AS month UNION SELECT 'April' AS month UNION SELECT 'May' AS month UNION SELECT 'June' AS month UNION SELECT 'July' AS month UNION SELECT 'August' AS month UNION SELECT 'September' AS month UNION SELECT 'October' AS month UNION SELECT 'November' AS month UNION SELECT 'December' AS month) T1) T2
                                         LEFT JOIN
                                     (SELECT 
-                                        MONTH(sales_date) AS month, SUM(total_price) AS total_sales
+                                        MONTHNAME(sales_date) AS month, SUM(total_price) AS total_sales
                                     FROM
                                         wongso.sales
                                     WHERE user_id = '${userId}'
-                                    GROUP BY MONTH(sales_date)) T3 ON T2.month = T3.month;`)
+                                    GROUP BY MONTHNAME(sales_date)) T3 ON T2.month = T3.month;`)
 }
 
 module.exports = {
