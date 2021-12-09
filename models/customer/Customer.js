@@ -16,8 +16,8 @@ const findCustomerByUserIdSorted = (userId, sortKey, sortOrder) => {
                                  ) T1 
                                  LEFT JOIN 
                                  (SELECT c.customer_id, SUM(s.qty) as total_order, SUM(s.total_price) as total_price 
-                                 FROM wongso.customer c 
-                                 JOIN wongso.sales s ON c.customer_id = s.customer_id
+                                 FROM customer c 
+                                 JOIN sales s ON c.customer_id = s.customer_id
                                  WHERE s.user_id = '${userId}' AND s.level = 'piece'
                                  GROUP BY c.customer_id) T2 ON T1.customer_id = T2.customer_id
                                  ORDER BY ${sortKey} ${sortOrder};`);
