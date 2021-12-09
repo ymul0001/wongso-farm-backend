@@ -27,7 +27,7 @@ const findCustomerByUserIdSorted = (userId, sortKey, sortOrder) => {
                                  JOIN sales s ON c.customer_id = s.customer_id
                                  WHERE s.user_id = '${userId}' AND s.level = 'piece'
                                  GROUP BY c.customer_id) T2 ON T1.customer_id = T2.customer_id
-                                 ORDER BY ${sortKey} ${sortOrder};`);
+                                 ORDER BY ${sortKey} ${sortOrder}`);
 }
 
 const createCustomer = (params) => {
