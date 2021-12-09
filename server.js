@@ -1,7 +1,7 @@
 'use strict';
 
 const env = require('dotenv');
-//const cors = require('cors');
+const cors = require('cors');
 env.config();
 
 const express = require('express');
@@ -16,15 +16,8 @@ const DashboardRouter = require('./routes/DashboardRoute');
 //configure express dependencies
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
-app.all('/*', (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header("Access-Control-Allow-Headers", "Authorization");
-    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, HEAD, OPTIONS")
-    next();
-});
-//app.use(cors());
-//app.options('*', cors());
+app.use(cors());
+app.options('*', cors());
 
 //register routes 
 app.use('/v1/dashboard', DashboardRouter);
