@@ -14,7 +14,7 @@ const findAllCustomerName = (userId) => {
 }
 
 const findCustomerByUserIdSorted = (userId, sortKey, sortOrder) => {
-    return mysqlService.execute(`SELECT T1.customer_id, T1.customer_initial, T1.customer_name, T1.customer_address, COALESCE(T2.total_order,0) AS total_order, COALESCE(T2.total_price,0) AS total_price
+    return mysqlService.execute(`SELECT T1.customer_id, T1.customer_initial, T1.customer_name, T1.customer_address, COALESCE(T2.total_order,0) AS total_order, COALESCE(T2.total_price,0) AS total_money
                                  FROM (
                                  SELECT c.customer_id, c.customer_initial, c.customer_name, c.customer_address
                                  FROM customer c 
