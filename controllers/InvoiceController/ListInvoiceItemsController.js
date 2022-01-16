@@ -12,7 +12,7 @@ const listInvoiceItems = async (req, res) => {
     const customerName = req.query.customername;
     const salesDate = req.query.salesdate;
     validateQueryParams(res, userId, customerName, salesDate);
-    const invoiceItems = await Invoice.findItemsForDailyInvoice(customerName, salesDate);
+    const invoiceItems = await Invoice.findItemsForDailyInvoice(userId, customerName, salesDate);
     validateInvoiceItemsData(res, invoiceItems);
 }
 
