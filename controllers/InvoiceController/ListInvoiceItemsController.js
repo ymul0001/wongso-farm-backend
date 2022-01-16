@@ -8,15 +8,19 @@ const StatusCode = require('../../commons/constant/StatusCode');
 
 
 const listInvoiceItems = async (req, res) => {
-    const customerName = req.query.customerName;
-    const salesDate = req.query.salesDate;
-    validateQueryParams(res, customerName, salesDate);
+    const userId = req.query.userid;
+    const customerName = req.query.customername;
+    const salesDate = req.query.salesdate;
+    validateQueryParams(res, userId, customerName, salesDate);
     const invoiceItems = await Invoice.findItemsForDailyInvoice(customerName, salesDate);
     validateInvoiceItemsData(res, invoiceItems);
 }
 
 
 const validateQueryParams = (res, customerName, salesDate) => {
+    if (StringUtils.isNullOrEmpty(userId)) {
+        return Response.returnResponse(res, StatusCode.status.BAD_REQUEST_EXCEPTION, 'user id cannot be empty');
+    }
     if (StringUtils.isNullOrEmpty(customerName)) {
         return Response.returnResponse(res, StatusCode.status.BAD_REQUEST_EXCEPTION, 'customer name cannot be empty');
     }
