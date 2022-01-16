@@ -17,7 +17,7 @@ const listInvoiceItems = async (req, res) => {
 }
 
 
-const validateQueryParams = (res, customerName, salesDate) => {
+const validateQueryParams = (res, userId, customerName, salesDate) => {
     if (StringUtils.isNullOrEmpty(userId)) {
         return Response.returnResponse(res, StatusCode.status.BAD_REQUEST_EXCEPTION, 'user id cannot be empty');
     }
