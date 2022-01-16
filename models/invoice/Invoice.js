@@ -1,6 +1,5 @@
 'use strict';
 
-
 const mysqlService = require('../../services/mysql');
 
 const findItemsForDailyInvoice = (customerName, salesDate) => {
@@ -21,6 +20,25 @@ const findItemsForDailyInvoice = (customerName, salesDate) => {
         `)
 }
 
+const findDistinctCustomerNamesWithSales = () => {
+    return mysqlService.execute(`
+        SELECT DISTINCT c.customer_name
+        FROM wongso.sales s 
+        JOIN wongso.customer c ON s.customer_id = c.customer_id;
+    `)
+}
+
+const findSalesDateForEachCustomerName = (customerName) => {
+    return mysqlService.execute(`
+        SELECT DISTINCT SUBSTRING(s.sales_date, 1, 10) AS sales_date
+        FROM wongso.sales s
+        JOIN wongso.customer c ON s.customer_id = c.customer_id
+        WHERE c.customer_name = '${customerName}';
+    `)
+}
+
 module.exports = {
-    findItemsForDailyInvoice
+    findItemsForDailyInvoice,
+    findDistinctCustomerNamesWithSales,
+    findSalesDateForEachCustomerName
 }
