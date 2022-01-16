@@ -30,10 +30,10 @@ const validateQueryParams = (res, userId, customerName, salesDate) => {
 }
 
 const validateInvoiceItemsData = (res, invoiceItems) => {
-    if (ListUtils.isNullOrEmpty(invoiceItems[0])) {
+    if (ListUtils.isNullOrEmpty(invoiceItems)) {
         return Response.returnResponse(res, StatusCode.status.DATA_NOT_FOUND_EXCEPTION, "Cannot find valid invoice items data");
     }
-    return Response.returnResponse(res, StatusCode.status.SUCCESS, invoiceItems[0]);
+    return Response.returnResponse(res, StatusCode.status.SUCCESS, invoiceItems);
 }
 
 
