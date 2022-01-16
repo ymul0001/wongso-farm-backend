@@ -7,14 +7,18 @@ const Response = require('../../commons/responses/Response');
 const StatusCode = require('../../commons/constant/StatusCode')
 
 const listSalesDate = async (req, res) => {
+    const userid = req.query.userid;
     const customerName = req.query.customername;
-    validateQueryParams(res, customerName);
-    const distinctSalesDates = await Invoice.findSalesDateForEachCustomerName(customerName);
+    validateQueryParams(res, userid, customerName);
+    const distinctSalesDates = await Invoice.findSalesDateForEachCustomerName(customerName, userid);
     validateDistinctSalesDate(res, distinctSalesDates);
 }
 
-const validateQueryParams = (res, customerName) => {
-    if (StringUtils.isNullOrEmpty(customerName)) {
+const validateQueryParams = (res, userid, customername) => {
+    if (StringUtils.isNullOrEmpty(userid)) {
+        return Response.returnResponse(res, StatusCode.status.BAD_REQUEST_EXCEPTION, 'user id cannot be empty');
+    }
+    if (StringUtils.isNullOrEmpty(customername)) {
         return Response.returnResponse(res, StatusCode.status.BAD_REQUEST_EXCEPTION, 'customer name cannot be empty');
     }
 }

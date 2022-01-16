@@ -20,20 +20,22 @@ const findItemsForDailyInvoice = (customerName, salesDate) => {
         `)
 }
 
-const findDistinctCustomerNamesWithSales = () => {
+const findDistinctCustomerNamesWithSales = (userid) => {
     return mysqlService.execute(`
         SELECT DISTINCT c.customer_name
         FROM wongso.sales s 
-        JOIN wongso.customer c ON s.customer_id = c.customer_id;
+        JOIN wongso.customer c ON s.customer_id = c.customer_id
+        WHERE s.user_id = '${userid}';
     `)
 }
 
-const findSalesDateForEachCustomerName = (customerName) => {
+const findSalesDateForEachCustomerName = (customerName, userid) => {
     return mysqlService.execute(`
         SELECT DISTINCT SUBSTRING(s.sales_date, 1, 10) AS sales_date
         FROM wongso.sales s
         JOIN wongso.customer c ON s.customer_id = c.customer_id
-        WHERE c.customer_name = '${customerName}';
+        WHERE c.customer_name = '${customerName}'
+        AND s.user_id = '${userid}';
     `)
 }
 
