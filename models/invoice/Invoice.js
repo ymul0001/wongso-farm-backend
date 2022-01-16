@@ -2,7 +2,7 @@
 
 const mysqlService = require('../../services/mysql');
 
-const findItemsForDailyInvoice = (customerName, salesDate) => {
+const findItemsForDailyInvoice = (userId, customerName, salesDate) => {
     return mysqlService.execute(`
             SELECT c.customer_name, 
             COALESCE(c.customer_address, '-') AS customer_address,
@@ -16,7 +16,7 @@ const findItemsForDailyInvoice = (customerName, salesDate) => {
             s.total_price
             FROM wongso.sales s 
             JOIN wongso.customer c ON s.customer_id = c.customer_id
-            WHERE c.customer_name = '${customerName}' AND s.sales_date = '${salesDate}';
+            WHERE s.user_id = '${userId}' AND c.customer_name = '${customerName}' AND s.sales_date = '${salesDate}';
         `)
 }
 
